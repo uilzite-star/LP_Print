@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalog — LP Print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --peach: #FFDDD4; --cream: #FFF6EE; --mocha: #A08682; --mocha-dark: #6B5651;
+  --pink-deep: #FF8FA3; --mint: #C8E7D8; --lemon: #FFF0B3; --ink: #4A3A37;
+  --line: #E8D5CD; --shadow: 0 3px 0 #C9A99F;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream); color: var(--ink);
+  font-family: 'Mali', cursive; font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background-image:
+    radial-gradient(circle at 8% 15%, var(--peach) 0%, transparent 38%),
+    radial-gradient(circle at 92% 65%, var(--mint) 0%, transparent 38%),
+    radial-gradient(circle at 48% 92%, var(--lemon) 0%, transparent 32%);
+  opacity: .45;
+}
+
+header {
+padding: 14px 32px; display: flex; justify-content: space-between; align-items: center;
+position: sticky; top: 0; z-index: 200;
+background: rgba(255,246,238,.88); backdrop-filter: blur(12px);
+border-bottom: 2px dashed var(–peach);
+}
+.brand { font-weight: 700; font-size: 22px; color: var(–mocha-dark); text-decoration: none; }
+.brand span { color: var(–pink-deep); }
+nav { display: flex; gap: 4px; align-items: center; }
+.nav-link {
+padding: 7px 18px; border-radius: 20px; font-size: 14px; font-weight: 600;
+color: var(–mocha-dark); text-decoration: none; transition: all .15s;
+border: 2px solid transparent; font-family: ‘Mali’, cursive;
+}
+.nav-link:hover { background: var(–peach); border-color: var(–line); }
+.nav-link.active { background: var(–pink-deep); color: white; border-color: var(–pink-deep); }
+.nav-order {
+padding: 7px 20px; border-radius: 20px; font-size: 14px; font-weight: 700;
+color: white; text-decoration: none; background: var(–mocha-dark);
+border: 2px solid var(–mocha-dark); font-family: ‘Mali’, cursive;
+box-shadow: var(–shadow); transition: all .15s;
+}
+.nav-order:hover { transform: translateY(2px); box-shadow: 0 1px 0 #C9A99F; }
+.hamburger {
+display: none; background: var(–peach); border: 2px solid var(–line);
+border-radius: 12px; padding: 6px 12px; font-size: 18px; cursor: pointer;
+color: var(–mocha-dark); font-family: inherit;
+}
+.mobile-nav {
+display: none; flex-direction: column; gap: 6px; padding: 14px 24px 18px;
+background: rgba(255,246,238,.96); border-bottom: 2px dashed var(–peach);
+position: sticky; top: 57px; z-index: 199;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav .nav-link { text-align: center; }
+@media (max-width: 640px) { nav { display: none; } .hamburger { display: block; } }
+
+main { max-width: 1100px; margin: 0 auto; padding: 0 24px 100px; }
+
+.page-head { padding: 56px 0 28px; text-align: center; }
+.page-eyebrow {
+display: inline-flex; gap: 6px; align-items: center;
+padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+background: var(–peach); color: var(–mocha-dark); border: 2px solid var(–line);
+text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px;
+}
+.page-title { font-size: clamp(30px,5vw,46px); font-weight: 700; color: var(–mocha-dark); margin-bottom: 10px; letter-spacing: -.02em; }
+.page-title em { font-style: normal; color: var(–pink-deep); }
+.page-desc { font-size: 15px; color: var(–mocha); max-width: 540px; margin: 0 auto; line-height: 1.75; }
+
+.toc-bar {
+position: sticky; top: 60px; z-index: 150;
+background: rgba(255,246,238,.94); backdrop-filter: blur(10px);
+padding: 14px 0; margin-bottom: 32px;
+border-bottom: 2px dashed var(–peach);
+}
+.toc-inner {
+max-width: 1100px; margin: 0 auto; padding: 0 24px;
+display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+}
+.toc-inner::-webkit-scrollbar { display: none; }
+.toc-link {
+padding: 8px 16px; border-radius: 16px; font-size: 13px; font-weight: 600;
+color: var(–mocha-dark); text-decoration: none; white-space: nowrap;
+background: white; border: 2px solid var(–line); transition: all .15s; flex-shrink: 0;
+}
+.toc-link:hover { background: var(–peach); border-color: var(–mocha); }
+.toc-link.active { background: var(–pink-deep); color: white; border-color: var(–pink-deep); }
+
+.cat-section { padding: 24px 0 44px; scroll-margin-top: 130px; }
+.cat-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.cat-icon {
+width: 44px; height: 44px; border-radius: 13px; background: var(–peach);
+border: 2px solid var(–line); display: flex; align-items: center; justify-content: center;
+font-size: 18px; font-weight: 700; color: var(–mocha-dark); box-shadow: var(–shadow);
+}
+.cat-section:nth-child(odd) .cat-icon { background: var(–mint); border-color: #A8D4BB; color: #2E6649; }
+.cat-section:nth-child(3n) .cat-icon { background: var(–lemon); border-color: #E8D000; color: #7A6300; }
+.cat-title { font-size: 24px; font-weight: 700; color: var(–mocha-dark); }
+.cat-desc { color: var(–mocha); font-size: 14px; padding-left: 58px; margin-bottom: 22px; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 18px; }
+.product-card {
+background: white; border: 2px solid var(–line); border-radius: 22px;
+overflow: hidden; box-shadow: var(–shadow); transition: all .2s;
+display: flex; flex-direction: column;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 7px 0 #C9A99F; }
+.product-img {
+height: 120px; background: var(–peach); display: flex; align-items: center;
+justify-content: center; border-bottom: 2px solid var(–line);
+font-size: 36px; color: var(–mocha-dark);
+}
+.product-card:nth-child(even) .product-img { background: var(–mint); }
+.product-card:nth-child(3n) .product-img { background: var(–lemon); }
+.product-body { padding: 14px 18px 16px; flex: 1; display: flex; flex-direction: column; }
+.product-name { font-size: 15px; font-weight: 700; color: var(–mocha-dark); margin-bottom: 4px; line-height: 1.3; }
+.product-meta { font-size: 12px; color: var(–mocha); margin-bottom: 12px; flex: 1; }
+.product-price-row {
+display: flex; justify-content: space-between; align-items: center;
+padding-top: 12px; border-top: 1px dashed var(–line);
+}
+.product-price { font-size: 14px; font-weight: 700; color: var(–mocha-dark); }
+.product-price small { font-size: 11px; color: var(–mocha); font-weight: 500; }
+.product-btn {
+padding: 6px 14px; background: var(–pink-deep); color: white; border: none;
+border-radius: 14px; font-family: inherit; font-size: 12px; font-weight: 700;
+text-decoration: none; cursor: pointer; box-shadow: 0 2px 0 rgba(0,0,0,.15);
+transition: all .15s;
+}
+.product-btn:hover { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,.15); }
+
+.loading { text-align: center; padding: 60px 20px; color: var(–mocha); font-size: 14px; }
+.loading::before {
+content: ‘’; display: inline-block; width: 28px; height: 28px;
+border: 3px solid var(–peach); border-top-color: var(–pink-deep);
+border-radius: 50%; animation: spin .8s linear infinite;
+vertical-align: middle; margin-right: 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+footer {
+padding: 40px 24px; text-align: center; font-size: 13px; color: var(–mocha);
+border-top: 2px dashed var(–line); margin-top: 60px;
+}
+footer a { color: var(–mocha-dark); font-weight: 600; text-decoration: none; }
+footer a:hover { color: var(–pink-deep); }
+</style>
+
+</head>
+<body>
+
+<header>
+  <a class="brand" href="home.html">LP <span>Print</span></a>
+  <nav>
+    <a class="nav-link" href="home.html">Home</a>
+    <a class="nav-link active" href="catalog.html">Catalog</a>
+    <a class="nav-link" href="order.html">Order Form</a>
+    <a class="nav-link" href="tracking.html">Track Order</a>
+    <a class="nav-order" href="order.html">สั่งซื้อเลย</a>
+  </nav>
+  <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')">&#9776;</button>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link" href="home.html">Home</a>
+  <a class="nav-link active" href="catalog.html">Catalog</a>
+  <a class="nav-link" href="order.html">Order Form</a>
+  <a class="nav-link" href="tracking.html">Track Order</a>
+</div>
+
+<main>
+  <div class="page-head">
+    <div class="page-eyebrow">✦ Catalog</div>
+    <h1 class="page-title">สินค้า<em>ทั้งหมด</em></h1>
+    <p class="page-desc">เลือกดูสินค้าตามหมวดหมู่ คลิกหมวดที่แถบด้านบนเพื่อข้ามไปหมวดที่สนใจได้เลย</p>
+  </div>
+
+  <div class="toc-bar">
+    <div class="toc-inner" id="tocBar"></div>
+  </div>
+
+  <div id="catalogContainer">
+    <div class="loading">กำลังโหลดสินค้า...</div>
+  </div>
+</main>
+
+<footer>
+  LP Print &copy; 2026 &mdash; made with care &nbsp;|&nbsp;
+  <a href="https://lin.ee/Zubg4bm" target="_blank">LINE</a>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+// CONFIG: เปลี่ยนเป็น Google Apps Script URL ของคุณตอนเชื่อมจริง
+// ─────────────────────────────────────────────
+const GAS_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+// Sample data — ใช้แสดงตอนยังไม่ต่อ GAS
+const SAMPLE_CATALOG = {
+  categories: [
+    { id: 'print', name: 'งานพิมพ์',     icon: 'P', desc: 'งานพิมพ์ทั่วไป นามบัตร โปสเตอร์ ใบปลิว' },
+    { id: 'foil',  name: 'ฟอยล์',       icon: 'F', desc: 'ปั๊มฟอยล์ทอง เงิน โรสโกลด์ เพิ่มความหรู' },
+    { id: 'box',   name: 'กล่อง',        icon: 'B', desc: 'กล่องจั่วปัง กล่องบรรจุภัณฑ์คัสต้อม' },
+    { id: 'film',  name: 'ฟิล์มเคลือบ',   icon: 'L', desc: 'เคลือบฟิล์มด้าน เงา ป้องกันรอย' },
+    { id: 'paper', name: 'กระดาษ',       icon: 'D', desc: 'กระดาษคุณภาพดี มีให้เลือกหลายเกรด' },
+    { id: 'rgb',   name: 'RGB / CMYK',  icon: 'C', desc: 'งานพิมพ์ระบบสี RGB / CMYK ตามต้องการ' }
+  ],
+  products: [
+    { id: 'p_card',     categoryId: 'print', name: 'นามบัตร',         img: '◼', priceFrom: 50,  unit: '/ A3' },
+    { id: 'p_poster',   categoryId: 'print', name: 'โปสเตอร์',        img: '◻', priceFrom: 80,  unit: '/ A3' },
+    { id: 'p_postcard', categoryId: 'print', name: 'โปสการ์ด',        img: '◼', priceFrom: 60,  unit: '/ A3' },
+    { id: 'p_flyer',    categoryId: 'print', name: 'ใบปลิว',          img: '◻', priceFrom: 45,  unit: '/ A3' },
+    { id: 'p_photo',    categoryId: 'print', name: 'โฟโตการ์ด',       img: '◼', priceFrom: 70,  unit: '/ A3' },
+    { id: 'f_gold',     categoryId: 'foil',  name: 'ฟอยล์ทอง',        img: '✦', priceFrom: 30,  unit: '/ A3' },
+    { id: 'f_silver',   categoryId: 'foil',  name: 'ฟอยล์เงิน',        img: '✦', priceFrom: 30,  unit: '/ A3' },
+    { id: 'f_rose',     categoryId: 'foil',  name: 'ฟอยล์โรสโกลด์',   img: '✦', priceFrom: 35,  unit: '/ A3' },
+    { id: 'b_normal',   categoryId: 'box',   name: 'กล่องจั่วปัง',     img: '▢', priceFrom: 120, unit: '/ ใบ' },
+    { id: 'b_window',   categoryId: 'box',   name: 'กล่องมีหน้าต่าง',  img: '▢', priceFrom: 150, unit: '/ ใบ' },
+    { id: 'l_matte',    categoryId: 'film',  name: 'ฟิล์มด้าน',        img: '▤', priceFrom: 15,  unit: '/ A3' },
+    { id: 'l_gloss',    categoryId: 'film',  name: 'ฟิล์มเงา',         img: '▥', priceFrom: 15,  unit: '/ A3' },
+    { id: 'd_art',      categoryId: 'paper', name: 'กระดาษอาร์ต',     img: '▦', priceFrom: 0,   unit: 'free' },
+    { id: 'd_premium',  categoryId: 'paper', name: 'กระดาษพรีเมียม',  img: '▦', priceFrom: 10,  unit: '/ A3' },
+    { id: 'r_rgb',      categoryId: 'rgb',   name: 'พิมพ์ระบบ RGB',    img: '◐', priceFrom: 60,  unit: '/ A3' },
+    { id: 'r_cmyk',     categoryId: 'rgb',   name: 'พิมพ์ระบบ CMYK',   img: '◐', priceFrom: 50,  unit: '/ A3' }
+  ]
+};
+
+async function loadCatalog() {
+  let data = SAMPLE_CATALOG;
+  try {
+    if (GAS_URL && !GAS_URL.includes('YOUR_DEPLOYMENT_ID')) {
+      const res = await fetch(GAS_URL + '?action=getCatalog');
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.categories && json.products) data = json;
+      }
+    }
+  } catch (e) { console.warn('Using sample catalog:', e); }
+  renderCatalog(data);
+}
+
+function renderCatalog(data) {
+  const tocBar = document.getElementById('tocBar');
+  const container = document.getElementById('catalogContainer');
+
+  tocBar.innerHTML = data.categories.map(c =>
+    `<a class="toc-link" href="#${c.id}" data-cat="${c.id}">${c.name}</a>`
+  ).join('');
+
+  container.innerHTML = data.categories.map(c => {
+    const products = data.products.filter(p => p.categoryId === c.id);
+    return `
+      <section class="cat-section" id="${c.id}">
+        <div class="cat-head">
+          <div class="cat-icon">${c.icon || '✦'}</div>
+          <h2 class="cat-title">${c.name}</h2>
+        </div>
+        <p class="cat-desc">${c.desc || ''}</p>
+        <div class="product-grid">
+          ${products.map(p => `
+            <div class="product-card">
+              <div class="product-img">${p.img || '✦'}</div>
+              <div class="product-body">
+                <div class="product-name">${p.name}</div>
+                <div class="product-meta">เริ่มต้นที่ ฿${p.priceFrom} ${p.unit || ''}</div>
+                <div class="product-price-row">
+                  <div class="product-price">฿${p.priceFrom}<small> ${p.unit || ''}</small></div>
+                  <a class="product-btn" href="order.html?product=${p.id}">สั่งซื้อ</a>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  setupTocHighlight(data.categories);
+}
+
+function setupTocHighlight(categories) {
+  const sections = categories.map(c => document.getElementById(c.id));
+  const tocLinks = document.querySelectorAll('.toc-link');
+  function update() {
+    let activeId = categories[0].id;
+    const offset = 180;
+    sections.forEach(s => {
+      if (s && s.getBoundingClientRect().top - offset <= 0) activeId = s.id;
+    });
+    tocLinks.forEach(l => {
+      l.classList.toggle('active', l.dataset.cat === activeId);
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+loadCatalog();
+</script>
+
+</body>
+</html>
